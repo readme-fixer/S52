@@ -260,6 +260,43 @@ s52eglarm : CFLAGS = -I$(S52DROIDINC)                      \
                      -I./lib/parson                        \
                      $(DEFS)
 
+
+s52eglios : IOS_PLATFORM = iphonesimulator
+s52eglios : IOS_ARCH = arm7s
+
+s52eglios : CC     = `xcrun --sdk $(IOS_PLATFORM) clang`
+s52eglios : CXX    = `xcrun --sdk $(IOS_PLATFORM) clang++`
+s52eglios : AR     = `xcrun --sdk $(IOS_PLATFORM) ar`
+s52eglios : RANLIB = `xcrun --sdk $(IOS_PLATFORM) ranlib`
+
+s52eglios : S52IOSSDK = `xcrun --show-sdk-path --sdk $(IOS_PLATFORM)`
+
+              DEFS = -DS52_USE_PROJ                        \
+                     -DS52_USE_DOTPITCH                    \
+                     -DS52_USE_EGL                         \
+                     -DS52_USE_GLES2                       \
+                     -DS52_USE_OPENGL_VBO                  \
+                     -DS52_USE_FREETYPE_GL                 \
+                     -DS52_USE_OGR_FILECOLLECTOR           \
+                     -DS52_USE_SUPP_LINE_OVERLAP           \
+                     -DS52_USE_SOCK                        \
+                     -DG_DISABLE_ASSERT
+
+s52eglios : CFLAGS = -arch $(IOS_ARCH)                     \
+                     -pipe                                 \
+					 -Os                                   \
+					 -gdwarf-2                             \
+					 -I/usr/include/freetype2              \
+	                 -I./lib/freetype-gl                   \
+                     -I./lib/tesselator                    \
+                     -I./lib/parson                        \
+                     $(DEFS)
+
+
+#s52eglios : CC = xcrun --sdk iphoneos clang
+#s52eglios : CXX = xcrun --sdk iphoneos clang++
+
+
 # check this; gv use glib-1 S52 use glib-2
 #                 -DS52_USE_PROJ
 s52gv  : CFLAGS = `glib-config --cflags`                \
@@ -369,6 +406,7 @@ s52gv2 : LIBS = `pkg-config  --libs glib-2.0 lcms` \
                  -lGL -lGLU  $(GV2LIBS)
 
 
+s52eglios : LIBS = /home/aaron/iOS_lib
 # this goes with the -DS52_USE_PROJ flags
 #LIBS += -lproj
 
@@ -378,6 +416,7 @@ s52eglx       : libS52.so    test/s52eglx
 s52gtk2egl    : libS52.so    test/s52gtk2egl
 s52gtk3egl    : libS52.so    test/s52gtk3egl
 s52eglarm     : $(S52DROIDLIB)/libS52.a     test/s52eglarm
+s52eglios     : libS52.a     test/s52eglios
 s52gv         : libS52gv.so  test/s52gv
 s52gv2        : libS52gv.so  test/s52gv2
 s52gtk2       : libS52.so    test/s52gtk2
@@ -409,6 +448,9 @@ S52raz-3.2.rle.o: S52raz.s
 
 $(S52DROIDLIB)/libS52.a: $(OBJS_S52) $(OBJS_TESS) $(OBJS_FREETYPE_GL) $(OBJ_PARSON) tags
 	$(AR) r   $(S52DROIDLIB)/libS52.a $(OBJS_S52) $(OBJS_FREETYPE_GL) $(OBJS_TESS) $(OBJ_PARSON)
+
+$(S52IOSLIB)/libS52.a: $(OBJS_S52) $(OBJS_TESS) $(OBJS_FREETYPE_GL) $(OBJ_PARSON) tags
+	$(AR) r   $(S52IOSLIB)/libS52.a $(OBJS_S52) $(OBJS_FREETYPE_GL) $(OBJS_TESS) $(OBJ_PARSON)
 
 libS52.so: $(OBJS_S52) $(OBJS_TESS) $(OBJS_FREETYPE_GL) $(OBJ_PARSON) tags
 	$(CXX) -rdynamic -shared $(OBJS_S52) $(OBJS_FREETYPE_GL) $(OBJS_TESS) $(OBJ_PARSON) $(LIBS) -o $@
