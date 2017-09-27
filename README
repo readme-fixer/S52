@@ -124,18 +124,18 @@ MAKEFILE BUILD TARGET:
 
 Various experimental targets are available:
 
-#all: s52glx         # OGR & GLX
-#all: s52eglx        # OGR & EGL & X11 (for testing EGL/GLES2 on Linux)
-#all: s52eglarm      # OGR & EGL & ARM/Android (for testing EGL/GLES2 on ARM)
-#all: s52gv          # GV  (GTK)   using OpenEV/libgv.so
-#all: s52gv2         # GV2 (GTK2)
-#all: s52gtk2        # OGR & GTK2
-#all: s52gtk2p       # profiling
-#all: s52qt4         # OGR & Qt4 (same as s52gtk2 but run on Qt4)
-#all: s52win32       # same as s52gtk2, run on wine/win32 (MinGW)
-#all: s52clutter     # use COGL for rendering text
-#all: s52clutter.js  # use COGL for rendering text and Javascript
-#all: s52gtk2gps     # same as s52gtk2, used for testing with live data comming from GPSD
+# all: s52glx         # OGR & GLX
+# all: s52eglx        # OGR & EGL & X11 (for testing EGL/GLES2 on Linux)
+# all: s52eglarm      # OGR & EGL & ARM/Android (for testing EGL/GLES2 on ARM)
+# all: s52gv          # GV  (GTK)   using OpenEV/libgv.so
+# all: s52gv2         # GV2 (GTK2)
+# all: s52gtk2        # OGR & GTK2
+# all: s52gtk2p       # profiling
+# all: s52qt4         # OGR & Qt4 (same as s52gtk2 but run on Qt4)
+# all: s52win32       # same as s52gtk2, run on wine/win32 (MinGW)
+# all: s52clutter     # use COGL for rendering text
+# all: s52clutter.js  # use COGL for rendering text and Javascript
+# all: s52gtk2gps     # same as s52gtk2, used for testing with live data comming from GPSD
 
 
 MAKEFILE BUILD FLAGS:
